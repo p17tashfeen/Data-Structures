@@ -1,0 +1,113 @@
+void get(int *array){
+	int *ptr;
+	ptr = array;
+	cout<<"elements of array[5]"<<endl;
+	for(int i = 0;i<5;i++){
+		cout<<*ptr<<endl;
+		ptr++;
+	}
+}
+void length(int *array){
+	int *ptr;
+	ptr = array;
+	int length = 0;
+	for(int i = 0;i<5;i++){
+		length++;
+		ptr++;
+	}
+	cout<<"length = "<<length<<endl;
+}
+void update(int *array){
+	int x,n;
+
+	cout<<"Enter value for update"<<endl;
+	cin>>x;
+	cout<<"Enter postion for update value"<<endl;
+	cin>>n;
+	int *ptr;
+	ptr = array;
+	for(int i = 0;i<5;i++){
+		if(i == n-1){
+			*ptr = x;
+		}
+		else
+			ptr++;
+	}
+	ptr = array;
+	cout<<"updated array"<<endl;
+	for(int i = 0; i<5;i++){
+		cout<<*ptr<<endl;
+		ptr++;
+	}
+}
+void remove(int *array){
+	int x,n;
+	int *ptr;
+	int *ptr1;
+	ptr = array;
+	cout<<"Enter value to remove"<<endl;
+	cin>>x;
+	for(int i = 0;i<5;i++){
+		if(*ptr == x){
+			
+		}
+		else 
+			ptr++;
+}
+void main(){
+	int array[5];
+	cout<<"Enter elements for array[5]"<<endl;
+	for(int i = 0;i<5;i++){
+		cin>>array[i];
+	}
+	get(array);
+	length(array);
+	update(array);
+	remove(array);
+}
+
+
+:::::::::::::::::::::::::::::::paper question::::::::::::::::::::::::::::::::::::::::
+void same(int *p,int *q,int size){
+	int *ptr,*ptr1 = NULL;
+	ptr=p;
+	ptr1 = q;
+	int same = 0;
+	for(int i = 0;i<size;i++){
+		if(*ptr==*ptr1){
+			same= same+1;
+		}
+		ptr++;
+		ptr1++;
+	}
+	ptr=p;
+	ptr1 = q;
+	int count = 0;
+	for(int i = 0;i<size;i++){
+		for(int j = 0;j<size;j++){
+			if(*ptr==*ptr1){
+				count=count+1;
+			}
+			ptr1++;
+		}
+		//*ptr1 = NULL;
+		ptr = ptr-size;
+		ptr++;
+	}
+	cout<<"same = "<<same<<endl;
+	cout<<"count = "<<count<<endl;
+}
+void main(){
+	int array[6];
+	cout<<"Enter elements for array[6]"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>array[i];
+	}
+	int array1[6];
+	cout<<"Enter elements for array[6]"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>array1[i];
+	}
+	same(array,array1,6);
+
+}

@@ -1,0 +1,1955 @@
+/////////////////////////lab paper//////////////
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *right,*left;
+};
+
+class BST{
+	private:
+		bool flag,flag1;
+		node *temp,*current,*temp1,*temp3;
+	public:
+		int number,temp2,l_count,count_leaf,count,h,ph;
+		node *root;
+		int num;
+		BST(){
+			flag = flag1 = false;
+			temp = root = current = NULL;
+			l_count  = count = h = count_leaf = ph = 0;
+		}
+		void binary(node *temp){
+			if(root == NULL){
+     			temp = new node;
+     			temp->info = number;
+    			temp->left = NULL;
+     			temp->right = NULL;
+     			root = temp;
+     			return;
+   			}
+ 			if(temp->info==number){
+      			cout<<" Given number is already present in tree."<<endl;
+      			return;
+    		}
+    		if(temp->info > number){
+      			if(temp->left!=NULL){
+					binary(temp->left);
+		 			return;
+      			}
+      			else{
+	 				temp->left=new node;
+	 				temp->left->info = number;
+	 				temp->left->left=NULL;
+	 				temp->left->right=NULL;
+	 				return;
+       			}
+   			}
+   			if(temp->info < number){
+      			if(temp->right!=NULL){
+					binary(temp->right);
+		 			return;
+       			}
+     			else{
+	 			temp->right=new node;
+	 			temp->right->info = number;
+	 			temp->right->left=NULL;
+	 			temp->right->right=NULL;
+	 			return;
+       			}
+   			}
+		}
+		int height(node *temp){
+			int lh = 0;
+			int rh = 0;
+			int h = 0;
+			if(temp->left!=NULL){
+				lh++;
+				lh+=height(temp->left);
+			}
+			if(temp->right!=NULL){
+				rh++;
+				rh+=height(temp->right);
+			}
+			if(lh>rh){
+				h = lh;
+			}
+			else if(rh>lh){
+				h = rh;
+			}
+			else{
+				h = rh;
+			}
+			return h;
+		}
+		int bf(node *temp){
+			int lb = 0;
+			int rb = 0;
+			if(temp->left!=NULL){
+				lb = height(temp->left)+1;
+			}
+			if(temp->right!=NULL){
+				rb = height(temp->right)+1;
+			}
+			int bf = lb-rb;
+			return bf;
+		}
+		void bst(node *temp){
+			if(bf(temp) == 1){
+				flag = true;
+			}
+			else if(bf(temp)>1 || bf(temp)<=-1){
+				flag1 = true;
+			}
+		}
+		void cheack(node *temp){
+			
+			if(temp->left!=NULL){
+				cheack(temp->left);
+			}
+			cout<<"bf = "<<bf(temp)<<endl;
+			bst(temp);
+			if(temp->right!=NULL){
+				cheack(temp->right);
+			}
+		}
+		void cbt(){
+			if (flag1 == true){
+				cout<<"not cbt :"<<endl;
+			}
+			else if(flag == true && flag1 == false){
+				cout<<"cbt :"<<endl;	
+			}
+		}
+		void in(node *temp){
+			if(temp->left != NULL){
+				in(temp->left);
+			}
+			cout<<temp->info<<" ";
+			
+			if(temp->right != NULL){
+				in(temp->right);
+			}
+		}
+};
+int main(){
+	BST b;
+	for(int i = 0;i<10;i++){
+		cout<<"Enter number to insert in tree :"<<endl;
+		cin>>b.number;
+		b.binary(b.root);
+	}
+	b.in(b.root);
+	cout<<endl;
+	b.cheack(b.root);
+	b.cbt();
+}
+////////////////////////////////////////////left and right sub tree has same nodes////////////////
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *right,*left;
+};
+
+class BST{
+	private:
+		node *temp,*current,*temp1,*temp3;
+	public:
+		int number,temp2,l_count,count_leaf,count,h,ph;
+		node *root;
+		int num;
+		bool flag;
+		BST(){
+			flag = false;
+			temp = root = current = NULL;
+			l_count  = count = h = count_leaf = ph = 0;
+		}
+		void binary(node *temp){
+			if(root == NULL){
+     			temp = new node;
+     			temp->info = number;
+    			temp->left = NULL;
+     			temp->right = NULL;
+     			root = temp;
+     			return;
+   			}
+ 			if(temp->info==number){
+      			cout<<" Given number is already present in tree."<<endl;
+      			return;
+    		}
+    		if(temp->info > number){
+      			if(temp->left!=NULL){
+					binary(temp->left);
+		 			return;
+      			}
+      			else{
+	 				temp->left=new node;
+	 				temp->left->info = number;
+	 				temp->left->left=NULL;
+	 				temp->left->right=NULL;
+	 				return;
+       			}
+   			}
+   			if(temp->info < number){
+      			if(temp->right!=NULL){
+					binary(temp->right);
+		 			return;
+       			}
+     			else{
+	 			temp->right=new node;
+	 			temp->right->info = number;
+	 			temp->right->left=NULL;
+	 			temp->right->right=NULL;
+	 			return;
+       			}
+   			}
+		}
+		void a(node *temp){
+			if(temp->left!=NULL){
+    			a(temp->left);
+    		}
+    		cout<<temp->info<<" ";
+    		if(temp->right!=NULL){
+		 		a(temp->right);
+  			}
+		}
+		int height(node *temp){
+			int lh = 0;
+			int rh = 0;
+			int h = 0;
+			if(temp->left!=NULL){
+				lh++;
+				lh+=height(temp->left);
+			}
+			if(temp->right!=NULL){
+				rh++;
+				rh+=height(temp->right);
+			}
+			if(lh>rh){
+				h = lh;
+			}
+			if(rh>lh){
+				h = rh;
+			}
+			else{
+				h = rh;
+			}
+			return h;
+		}
+		void in_order(node *temp){
+  				if(temp->left!=NULL){
+    				in_order(temp->left);
+    			}
+    			if(temp->right!=NULL){
+		 			in_order(temp->right);
+  				}
+  				if(bf(temp) == 0){
+  					flag = true;	
+				}
+				else if(bf(temp) != 0){
+					flag = false;
+				}
+    		}
+		int bf(node *temp){
+			int lh = 0;
+			int rh = 0;
+			if(temp->left!=NULL){
+				lh = height(temp->left)+1;
+			}
+			if(temp->right!=NULL){
+				rh = height(temp->right)+1;
+			}
+			return lh-rh;
+		}	
+};
+int main(){
+	BST b;
+	for(int i = 0;i<4;i++){
+		cout<<"Enter number to insert in tree :"<<endl;
+		cin>>b.number;
+		b.binary(b.root);
+	}
+	b.a(b.root);
+	b.in_order(b.root);
+	cout<<endl;
+	if(b.flag == true){
+		cout<<"same node"<<endl;
+	}
+	if(b.flag == false){
+		cout<<"not same "<<endl;
+	}
+}
+//////////////////////////////////////strictly/////////////////////////
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *right,*left;
+};
+
+class BST{
+	private:
+		node *temp,*current,*temp1,*temp3;
+	public:
+		int number,temp2,l_count,count_leaf,count,h,ph;
+		node *root;
+		int num;
+		BST(){
+			temp = root = current = NULL;
+			l_count  = count = h = count_leaf = ph = 0;
+		}
+		void binary(node *temp){
+			if(root == NULL){
+     			temp = new node;
+     			temp->info = number;
+    			temp->left = NULL;
+     			temp->right = NULL;
+     			root = temp;
+     			return;
+   			}
+ 			if(temp->info==number){
+      			cout<<" Given number is already present in tree."<<endl;
+      			return;
+    		}
+    		if(temp->info > number){
+      			if(temp->left!=NULL){
+					binary(temp->left);
+		 			return;
+      			}
+      			else{
+	 				temp->left=new node;
+	 				temp->left->info = number;
+	 				temp->left->left=NULL;
+	 				temp->left->right=NULL;
+	 				return;
+       			}
+   			}
+   			if(temp->info < number){
+      			if(temp->right!=NULL){
+					binary(temp->right);
+		 			return;
+       			}
+     			else{
+	 			temp->right=new node;
+	 			temp->right->info = number;
+	 			temp->right->left=NULL;
+	 			temp->right->right=NULL;
+	 			return;
+       			}
+   			}
+		}
+		
+		void in_order(node *temp){
+  			if( temp->left!=NULL ){
+    			in_order(temp->left);
+    		}
+    		if(temp->left == NULL && temp->right == NULL){
+    			count_leaf++;  //count leaf nodes;
+    		}
+    		count++;
+    		cout<<temp->info<<"  ";
+  			if( temp->right!=NULL ){
+		 		in_order(temp->right);
+  			}
+  			if(root==NULL){
+				cout<<" Tree is empty.\n";
+				return;
+    		}
+    	}
+    	
+		int pow(int n){
+			int a = 2*n;
+			return a-1;
+		}
+		void str(){
+			int n = count_leaf;
+			if(count == pow(n)){
+				cout<<"strictly binary tree :"<<endl;
+			}
+			else{
+				cout<<"NOT strictly binary tree :"<<endl;
+			}
+		}
+};
+
+
+int main(){
+	BST b;
+	for(int i = 0;i<7;i++){
+		cout<<"Enter number to insert in tree :"<<endl;
+		cin>>b.number;
+		b.binary(b.root);
+	}
+	b.in_order(b.root);
+	cout<<endl;
+	cout<<"no's of leaf = "<<b.count_leaf<<endl;
+	cout<<"no's of nodes = "<<b.count<<endl;
+	b.str();
+}
+///////////////////////////////////////leaf at same leval///////////////////
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *right,*left;
+};
+
+class BST{
+	private:
+		node *temp,*current,*temp1,*temp3;
+	public:
+		int number,temp2,l_count,count_leaf,count,h,ph;
+		node *root;
+		int num;
+		BST(){
+			temp = root = current = NULL;
+			l_count  = count = h = count_leaf = ph = 0;
+		}
+		void binary(node *temp){
+			if(root == NULL){
+     			temp = new node;
+     			temp->info = number;
+    			temp->left = NULL;
+     			temp->right = NULL;
+     			root = temp;
+     			return;
+   			}
+ 			if(temp->info==number){
+      			cout<<" Given number is already present in tree."<<endl;
+      			return;
+    		}
+    		if(temp->info > number){
+      			if(temp->left!=NULL){
+					binary(temp->left);
+		 			return;
+      			}
+      			else{
+	 				temp->left=new node;
+	 				temp->left->info = number;
+	 				temp->left->left=NULL;
+	 				temp->left->right=NULL;
+	 				return;
+       			}
+   			}
+   			if(temp->info < number){
+      			if(temp->right!=NULL){
+					binary(temp->right);
+		 			return;
+       			}
+     			else{
+	 			temp->right=new node;
+	 			temp->right->info = number;
+	 			temp->right->left=NULL;
+	 			temp->right->right=NULL;
+	 			return;
+       			}
+   			}
+		}
+		int height(node *temp) {
+        	int lh = 0;
+        	int rh = 0;
+        	int h = 0;
+        	
+        	if(temp->left != NULL){
+            	lh++;
+            	lh += height(temp->left);
+        	}
+        	if(temp->right != NULL){
+            	rh++;
+            	rh += height(temp->right);
+        	}
+        	if (lh > rh) {
+            	h = lh;
+        	}
+        	else if (rh > lh) {
+            	h = rh;
+        	}
+        	else{
+            	h = rh;
+        	}
+        	return h;
+    	}
+    	
+		void same(node *temp){
+			if(temp->left !=NULL){
+				ph++;
+				same(temp->left);
+				ph--;
+			}
+			if(temp->left == NULL && temp->right == NULL && ph == h){
+				count++; //count nodes at last height.
+			}
+			if(temp->right!=NULL){
+				ph++;
+				same(temp->right);
+				ph--;
+			}	
+		}
+		
+		void in_order(node *temp){
+  			if( temp->left!=NULL ){
+    			in_order(temp->left);
+    		}
+    		if(temp->left == NULL && temp->right == NULL){
+    			count_leaf++;  //count leaf nodes;
+    		}
+    		cout<<temp->info<<"  ";
+  			if( temp->right!=NULL ){
+		 		in_order(temp->right);
+  			}
+  			if(root==NULL){
+				cout<<" Tree is empty.\n";
+				return;
+    		}
+    	}
+    	
+    	void nodes(){
+    		if(count == count_leaf){
+    			cout<<"at same laval :"<<endl;
+			}
+			else{
+				cout<<"Not at same laval :"<<endl;
+			}
+		}
+};
+
+
+int main(){
+	BST b;
+	for(int i = 0;i<6;i++){
+		cout<<"Enter number to insert in tree :"<<endl;
+		cin>>b.number;
+		b.binary(b.root);
+	}
+	b.in_order(b.root);
+	cout<<endl;
+	int a = b.height(b.root);
+	b.h = a;
+	b.same(b.root);
+	b.nodes();
+	cout<<"height = "<<b.h<<endl;
+	cout<<"no's of leaf = "<<b.count_leaf<<endl;
+	cout<<"no's of leaf at last height = "<<b.count<<endl;
+}
+
+///////////////////////////////////////////////////paper questions//////////////////////////////////////////////////
+void same(int *p,int *q,int size){
+	int *ptr,*ptr1 = NULL;
+	ptr=p;
+	ptr1 = q;
+	int same = 0;
+	for(int i = 0;i<size;i++){
+		if(*ptr==*ptr1){
+			same= same+1;
+		}
+		ptr++;
+		ptr1++;
+	}
+	ptr=p;
+	ptr1 = q;
+	int count = 0;
+	for(int i = 0;i<size;i++){
+		for(int j = 0;j<size;j++){
+			if(*ptr==*ptr1){
+				count=count+1;
+			}
+			ptr1++;
+		}
+		//*ptr1 = NULL;
+		ptr = ptr-size;
+		ptr++;
+	}
+	cout<<"same = "<<same<<endl;
+	cout<<"count = "<<count<<endl;
+}
+void main(){
+	int array[6];
+	cout<<"Enter elements for array[6]"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>array[i];
+	}
+	int array1[6];
+	cout<<"Enter elements for array[6]"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>array1[i];
+	}
+	same(array,array1,6);
+
+}
+
+
+/////////////////////////////////////////////////////
+struct node{
+	int info;
+	node *next;
+};
+class a{
+	private:
+		node *head,*temp,*ptr,*current;
+	public:
+		a(){
+			head = temp = ptr = current = NULL;
+		}
+		void insert(){
+			if(head==NULL){
+				head = new node;
+				cout<<"enter info :"<<endl;
+				cin>>head->info;
+				head->next = NULL;
+			}
+			else{
+				current = head;
+				while(current->next!=NULL){
+					current = current->next;
+				}
+				current->next = new node;
+				cout<<"enter info:"<<endl;
+				cin>>current->next->info;
+				current->next->next = NULL;
+			}
+		}
+	void deletion(){
+			temp = head;
+			int min = head->info;
+			int max = head->info;
+			while(temp->next != NULL){
+				if(temp->next->info<min){
+					min = temp->next->info;
+					ptr = temp;
+				}
+				if(temp->next->info>max){
+					max = temp->next->info;
+					current = temp;
+				}
+				temp = temp->next;
+			}
+			cout<<"min "<<min<<endl;
+			cout<<"max "<<max<<endl;
+			mi(ptr,min);
+			ma(current,max);
+		}
+		void ma(node *current,int max){
+			if(max == head->info){
+				temp = head;
+				head = head->next;
+				delete temp;
+				temp = NULL;
+				return;
+			}
+			temp = current;
+			if(temp->next!=NULL){
+				current = current->next;
+				temp->next = current->next;
+				delete current;
+				current = NULL;
+				return;
+			}
+			if(temp->next->next == NULL){
+				current = current->next;
+				temp->next = NULL;
+				delete current;
+				current = NULL;
+				return;
+			}	
+		}
+		void mi(node *ptr,int min){
+			if(min == head->info){
+				temp = head;
+				head = head->next;
+				delete temp;
+				temp = NULL;
+				return;
+			}
+			temp = ptr;
+			if(temp->next!=NULL){
+				ptr = ptr->next;
+				temp->next = ptr->next;
+				delete ptr;
+				ptr = NULL;
+				return;
+				
+			}
+			if(temp->next->next == NULL){
+				ptr = ptr->next;
+				temp->next = NULL;
+				delete ptr;
+				ptr = NULL;
+				return;
+			}
+		}		
+		void print(){
+			temp = head;
+			while(temp!=NULL){
+				cout<<temp->info;
+				temp = temp->next;
+			}
+		}
+};
+int main(){
+	a a1;
+	
+	for(int i = 0;i<6;i++){
+		a1.insert();
+	}
+	a1.print();
+	cout<<endl;
+	for(int i = 0;i<6;i++){
+		a1.print();
+		cout<<endl;
+		a1.deletion();
+	}
+}
+//////////////////////////////////////////////////////////////////////////////
+void assending_desending(){
+			temp = head;
+			while(temp->next!=NULL){
+				first = temp;
+				second = temp->next;
+				if(first->info<second->info){
+					flag1 = true;
+					flag = false;
+				}
+				else{
+					flag1 = false;
+					flag = true;
+					break;
+				}
+				temp = temp->next;
+			}
+			temp = head;
+			while(temp->next!=NULL){
+				first = temp;
+				second = temp->next;
+				if(first->info>second->info){
+					flag2 = true;
+					flag = false;
+				}
+				else{
+					if(flag1 == true){
+						break;
+					}
+					flag2 = false;
+					flag = true;
+					break;
+				}
+				temp = temp->next;
+			}
+			if(flag2 == true){
+				cout<<"deassending :"<<endl;	
+			}
+			if(flag1 == true){
+				cout<<"assending :"<<endl;
+			}
+			if(flag == true){
+				cout<<"non :"<<endl;
+			}
+			
+		}
+//////////////////////////////////////////////////////////////////////////////////////
+void ftn(int n,int x,int y,int z){ 
+	int array[n];
+	int *ptr,*temp,*temp1;
+	ptr = array;
+	*ptr = x;
+	ptr++;
+	*ptr = y;
+	ptr++;
+	*ptr = z;
+	ptr++;
+	temp = array;
+	temp1 = array;
+	for(int i = 0;i<n;i++){
+		int a = 0;
+		temp = temp1;
+		for(int j = 0;j<3;j++){
+			a = a+*temp;
+			temp++;
+		}
+		temp = array;
+		*ptr = a;
+		*ptr++;
+		temp1++;
+	}
+	for(int i= 0;i<6;i++){
+		cout<<array[i]<<endl;
+	}	
+}
+int main(){
+	int n,x,y,z;
+	cout<<"Enter N"<<endl;
+	cin>>n;
+	cout<<"Enter three values"<<endl;
+	cin>>x;
+	cin>>y;
+	cin>>z;
+	ftn(n,x,y,z);
+}
+/////////////////////////////////////////////////////////////////////
+void even(int *a){
+	int *temp;
+	temp = a;
+	int even = 0;
+	int odd = 0;
+	int non = 0;
+	for(int i = 0;i<6;i++){
+		if(i%2 == 0 && *temp%2 == 0){
+			even = even+1;
+			temp++;
+			continue;
+			
+		}
+		if(i%2 == 1 && *temp%2 == 1){
+			odd = odd + 1;
+			temp++;
+			continue;
+		}
+		else{
+			non = non +1;
+			temp++;
+			continue;
+		}
+		
+	}
+	cout<<"even = "<<even<<endl;
+	cout<<"odd = "<<odd<<endl;
+	cout<<"non = "<<non<<endl;
+}
+int main(){
+	int array[6];
+	int *ptr;
+	ptr = array;
+	cout<<"Enter elements"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>*ptr;
+		ptr++;
+	}
+	ptr = array;
+	cout<<"Enter elements"<<endl;
+	for(int i = 0;i<6;i++){
+		cout<<*ptr;
+		ptr++;
+	}
+	even(array);
+}
+////////////////////////////////////////////////////////////////////////
+void repeat(){
+			temp = head;
+			ptr = head;
+			while(ptr!=NULL){
+				temp = ptr->next;
+				while(temp!=NULL){
+					if(ptr->info==temp->info){
+						rep = rep+1;
+					}
+					temp = temp->next;
+				}
+				ptr = ptr->next;
+			}
+			cout<<"rep = "<<rep<<endl;
+		}
+///////////////////////////////////////////////////////////////////////
+void dubly(node *temp){
+		ptr = temp;
+		int count = 0;
+		while(ptr!=NULL){
+			count++;
+			ptr = ptr->next;
+		}
+		ptr = temp;
+		int count1 = 0;
+		while(ptr!=NULL){
+			count1++;
+			ptr = ptr->pre;
+		}
+		if(count>count1){
+			cout<<"near head"<<endl;
+		}
+		else if(count1>count){
+			cout<<"near end"<<endl;
+		}
+		else if(count == count1){
+			cout<<"same "<<endl;
+		}
+	}
+/////////////////////////////////////////////////////
+void search(int key){
+			int count = 0;
+			int count1 = 0;
+			temp = head;
+			ptr = head;
+			while(temp->info != key){
+				count++;
+				temp = temp->next;
+			}
+			while(ptr->info!=key){
+				count1++;
+				ptr = ptr->pre;
+			}
+			if(count<count1){
+				cout<<"search fast next pointer "<<endl;
+			}
+			else if(count1<count){
+				cout<<"search fast pre pointer "<<endl;
+			}
+			else if(count == count1){
+				cout<<"same "<<endl;
+			}
+		}
+/////////////////////////////////////////////////////
+void p(){
+	char array[5];
+	cout<<"Enter char"<<endl;
+	char *temp,*temp1;
+	temp = array;
+	for(int i = 0;i<5;i++){
+		cin>>*temp;
+		temp++;
+	}
+	temp = array;
+	temp1 = array;
+	for(int i = 1;i<5;i++){
+		temp1++;
+	}
+	for(int i = 0;i<5/2;i++){
+		if(*temp != *temp1){
+			cout<<"not palandrom :"<<endl;
+			break;
+		}
+		if(*temp == *temp1){
+			*temp++;
+			*temp1--;
+		}
+	}
+	if(*temp == *temp1){
+		cout<<"palndrom"<<endl;
+	}
+}
+int main(){
+	p();
+}
+/////////////////////////////////////////////////////////////////////
+	void search(){
+			temp = head;
+			int N = next(temp);
+			cout<<"next = "<<N<<endl;
+			current = head;
+			int P = pre(current);
+			cout<<"pre = "<<P<<endl;
+			if(P>N){
+				cout<<"with next pointer "<<endl;
+			}
+			else{
+				cout<<"with pre pointer "<<endl;
+			}
+		}
+		
+		int next(node *temp){
+			int count = 0;
+			if(temp->info == key){
+				return count;
+			}
+			if(temp->info != key){
+				count++;
+				count += next(temp->next);
+			}
+			return count;
+		}
+		int pre(node *current){
+			int count1 = 0;
+			if(current->info == key){
+				return count1;
+			}
+			if(current->info != key){
+				count1++;
+				count1 += pre(current->pre);
+			}
+			return count1;
+		}
+//////////////////////////////////////////////////////////////////////
+#include<iostream>
+using namespace std;
+
+/*void count(int *a,int *a1){
+	
+	int count1 = 0;
+	int same = 0;
+	int *temp,*temp1 = NULL;
+	temp = a;
+	temp1 = a1;
+
+	for(int i = 0;i<6;i++){
+		if(*temp == *temp1){
+			count1 = count1+1;
+		}
+		temp++;
+		temp1++;
+	}
+	cout<<"count = "<<count1<<endl;
+	temp = a;
+	temp1 = a1;
+	for(int i = 0;i<6;i++){
+		temp1 = a1;
+		for(int j = 0;j<6;j++){
+			if(*temp==*temp1){
+				same++;
+			}
+			temp1++;
+		}
+		temp++;
+	}
+	cout<<"same = "<<same<<endl;
+}*/
+/*void ftn(int n,int x,int y,int z){ 
+	int array[n];
+	int *ptr,*temp,*temp1;
+	ptr = array;
+	*ptr = x;
+	ptr++;
+	*ptr = y;
+	ptr++;
+	*ptr = z;
+	ptr++;
+	temp = array;
+	temp1 = array;
+	for(int i = 0;i<n;i++){
+		int a = 0;
+		temp = temp1;
+		for(int j = 0;j<3;j++){
+			a = a+*temp;
+			temp++;
+		}
+		temp = array;
+		*ptr = a;
+		*ptr++;
+		temp1++;
+	}
+	for(int i= 0;i<6;i++){
+		cout<<array[i]<<endl;
+	}	
+}
+int main(){
+	int n,x,y,z;
+	cout<<"Enter N"<<endl;
+	cin>>n;
+	cout<<"Enter three values"<<endl;
+	cin>>x;
+	cin>>y;
+	cin>>z;
+	ftn(n,x,y,z);
+	/*int array[6];
+	int array1[6];
+	int *ptr,*temp;
+	ptr = array;
+	temp = array1;
+	cout<<"Enter elements"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>*ptr;
+		ptr++;
+	}
+	cout<<"Enter elements"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>*temp;
+		temp++;
+	}
+	count(array,array1);*/
+//}
+/*void even(int *a){
+	int *temp;
+	temp = a;
+	int even = 0;
+	int odd = 0;
+	int non = 0;
+	for(int i = 0;i<6;i++){
+		if(i%2 == 0 && *temp%2 == 0){
+			even = even+1;
+			temp++;
+			continue;
+			
+		}
+		if(i%2 == 1 && *temp%2 == 1){
+			odd = odd + 1;
+			temp++;
+			continue;
+		}
+		else{
+			non++;
+			temp++;
+			continue;
+		}
+		
+	}
+	cout<<"even = "<<even<<endl;
+	cout<<"odd = "<<odd<<endl;
+	cout<<"non = "<<non<<endl;
+}
+int main(){
+	int array[6];
+	int *ptr;
+	ptr = array;
+	cout<<"Enter elements"<<endl;
+	for(int i = 0;i<6;i++){
+		cin>>*ptr;
+		ptr++;
+	}
+	ptr = array;
+	cout<<"Enter elements"<<endl;
+	for(int i = 0;i<6;i++){
+		cout<<*ptr;
+		ptr++;
+	}
+	even(array);
+}*/
+
+/*struct node{
+	int info;
+	node *next;
+};
+class a{
+	private:
+		node *head,*temp,*ptr,*current;
+	public:
+		a(){
+			head = temp = ptr = current = NULL;
+		}
+		void insert(){
+			if(head==NULL){
+				head = new node;
+				cout<<"enter info :"<<endl;
+				cin>>head->info;
+				head->next = NULL;
+			}
+			else{
+				current = head;
+				while(current->next!=NULL){
+					current = current->next;
+				}
+				current->next = new node;
+				cout<<"enter info:"<<endl;
+				cin>>current->next->info;
+				current->next->next = NULL;
+			}
+		}
+		void repeat(){
+			temp = head;
+			ptr = head;
+			while(ptr!=NULL){
+				temp = ptr->next;
+				while(temp!=NULL){
+					if(ptr->info==temp->info){
+						rep = rep+1;
+					}
+					temp = temp->next;
+				}
+				ptr = ptr->next;
+			}
+			cout<<"rep = "<<rep<<endl;
+		}*/
+	/*void deletion(){
+			temp = head;
+			int min = head->info;
+			int max = head->info;
+			while(temp->next != NULL){
+				if(temp->next->info<min){
+					min = temp->next->info;
+					ptr = temp;
+				}
+				if(temp->next->info>max){
+					max = temp->next->info;
+					current = temp;
+				}
+				temp = temp->next;
+			}
+			cout<<"min "<<min<<endl;
+			cout<<"max "<<max<<endl;
+			mi(ptr,min);
+			ma(current,max);
+		}
+		void ma(node *current,int max){
+			if(max == head->info){
+				temp = head;
+				head = head->next;
+				delete temp;
+				temp = NULL;
+				return;
+			}
+			temp = current;
+			if(temp->next!=NULL){
+				current = current->next;
+				temp->next = current->next;
+				delete current;
+				current = NULL;
+				return;
+			}
+			if(temp->next->next == NULL){
+				current = current->next;
+				temp->next = NULL;
+				delete current;
+				current = NULL;
+				return;
+			}	
+		}
+		void mi(node *ptr,int min){
+			if(min == head->info){
+				temp = head;
+				head = head->next;
+				delete temp;
+				temp = NULL;
+				return;
+			}
+			temp = ptr;
+			if(temp->next!=NULL){
+				ptr = ptr->next;
+				temp->next = ptr->next;
+				delete ptr;
+				ptr = NULL;
+				return;
+				
+			}
+			if(temp->next->next == NULL){
+				ptr = ptr->next;
+				temp->next = NULL;
+				delete ptr;
+				ptr = NULL;
+				return;
+			}
+		}*/		
+		/*void print(){
+			temp = head;
+			while(temp!=NULL){
+				cout<<temp->info;
+				temp = temp->next;
+			}
+		}
+};
+int main(){
+	a a1;
+	
+	for(int i = 0;i<6;i++){
+		a1.insert();
+	}
+	a1.print();
+	cout<<endl;
+	a1.re();
+}
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *next;
+	node *pre;
+};
+class data{
+	node *head,*temp,*current,*ptr;
+public:
+	data(){
+		head = NULL;
+		temp = NULL;
+		current = NULL;
+		ptr = NULL;
+	}
+	void insert_last(){
+		if(head == NULL){
+			head = new node;
+			cout<<"Enter info to insert at last 1"<<endl;
+			cin>>head->info;
+			head->next= NULL;
+			head->pre = NULL;
+		}
+		else{
+			current = head;
+			
+			while(current->next!= NULL){
+				current = current->next;
+			}
+			temp = current;
+			current = new node;
+			cout<<"Enter info  to insert at last 2"<<endl;
+			cin>>current->info;
+			current->next = NULL;
+			temp->next = current;
+			current->pre = temp;
+		}
+
+	}
+	void dubly(node *temp){
+		ptr = temp;
+		int count = 0;
+		while(ptr!=NULL){
+			count++;
+			ptr = ptr->next;
+		}
+		ptr = temp;
+		int count1 = 0;
+		while(ptr!=NULL){
+			count1++;
+			ptr = ptr->pre;
+		}
+		if(count>count1){
+			cout<<"near head"<<endl;
+		}
+		else if(count1>count){
+			cout<<"near end"<<endl;
+		}
+		else if(count == count1){
+			cout<<"same "<<endl;
+		}
+	}
+	
+	void print(){
+		current = head;
+		while(current!= NULL){
+			cout<<current->info<<endl;
+			current = current->next;
+		}
+
+	}
+	void a(){
+		temp = head;
+		for(int i = 1;i<3;i++){
+			temp = temp->next;
+		}
+		dubly(temp);
+	}
+};
+int main(){
+	data d;
+	for(int i = 0;i<5;i++){
+		d.insert_last();
+	}
+	d.print();
+	d.a();
+	return 0;
+}
+#include<iostream>
+using namespace std;
+
+
+struct node{
+	int info;
+	node *next;
+	node *pre;	
+};	
+
+class ring{
+	node *head,*temp,*current,*ptr;
+public:
+	ring(){
+		head = temp = current = ptr = NULL;
+	}
+		void insert_last(){
+			if(head == NULL){
+				head = new node;
+				cout<<"Enter info 1"<<endl;
+				cin>>head->info;
+				head -> next = head;
+				head ->pre = head;
+			}
+			else if(head->next == head){
+				current = new node;
+				cout<<"Enter info 2"<<endl;
+				cin>>current->info;
+				current->next = head;
+				current->pre = head;
+				head->next = current;
+				head->pre=current;
+				
+			}
+			else {
+				temp = new node;
+				cout<<"Enter info 3"<<endl;
+				cin>>temp->info;
+				temp->next = head;
+				temp->pre = current;
+				current->next = temp;
+				head->pre = temp;
+				current = temp;
+			}
+			
+		}
+		void search(int key){
+			int count = 0;
+			int count1 = 0;
+			temp = head;
+			ptr = head;
+			while(temp->info != key){
+				count++;
+				temp = temp->next;
+			}
+			while(ptr->info!=key){
+				count1++;
+				ptr = ptr->pre;
+			}
+			if(count<count1){
+				cout<<"search fast from the head"<<endl;
+			}
+			else if(count1<count){
+				cout<<"search fast from the prev"<<endl;
+			}
+			else if(count == count1){
+				cout<<"same "<<endl;
+			}
+		}
+		void asd(node *temp){
+			int count = 0;
+			if(temp->info!=key){
+				count += count+1;
+				asd(temp->next);
+			}
+			
+		}
+		void print(){
+			current = head;
+			cout<<"////////////////link list//////////////"<<endl;
+			while(current->next != head){
+				cout<<current->info<<endl;
+				current =current->next;
+			}
+			cout<<current->info<<endl;
+		}			
+};
+int main(){
+	ring r1;
+	for(int i = 0;i<5;i++){
+		r1.insert_last();
+	}
+	r1.print();
+	int n;
+	cout<<"Enter info for search :"<<endl;
+	cin>>n;
+	r1.search(n);
+	
+}
+////////////////////////////////////////////singly link list ////////////////////////////////////////////////////////////////
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *next;
+};
+class data{
+private:
+	node *head,*current,*temp,*temp1,*first,*second;
+	bool flag,flag1,flag2;
+public:
+	data(){
+		head = current = temp = temp1 = first = second = NULL;
+		flag = flag1 = flag2 = 0;
+	}
+	void insert_last(){
+		if(head==NULL){
+			head = new node;
+			cout<<"enter info :"<<endl;
+			cin>>head->info;
+			head->next = NULL;
+		}
+        
+		else{
+			current = head;
+			while(current->next!=NULL){
+				current = current->next;
+			}
+			current->next = new node;
+			cout<<"enter info:"<<endl;
+			cin>>current->next->info;
+			current->next->next = NULL;
+		}
+
+    
+	}
+void assending_desending(){
+			temp = head;
+			while(temp->next!=NULL){
+				first = temp;
+				second = temp->next;
+				if(first->info<second->info){
+					flag1 = true;
+					flag = false;
+				}
+				else{
+					flag1 = false;
+					flag = true;
+					break;
+				}
+				temp = temp->next;
+			}
+			temp = head;
+			while(temp->next!=NULL){
+				first = temp;
+				second = temp->next;
+				if(first->info>second->info){
+					flag2 = true;
+					flag = false;
+				}
+				else{
+					if(flag1 == true){
+						break;
+					}
+					flag2 = false;
+					flag = true;
+					break;
+				}
+				temp = temp->next;
+			}
+			if(flag1 == true){
+				cout<<"assending :"<<endl;
+			}
+			if(flag2 == true){
+				cout<<"deassending :"<<endl;	
+			}
+			if(flag == true){
+				cout<<"non :"<<endl;
+			}
+			
+		}
+	
+	void print(){
+		current = head;
+		while(current!= NULL){
+			cout<<current->info<<endl;
+			current = current->next;
+		}
+
+	}
+};
+int main(){
+	data d;
+	for(int i = 0;i<5;i++){
+		d.insert_last();	
+	}
+	d.print();
+	d.assending_desending();
+	
+}
+#include<iostream>
+using namespace std;
+
+
+struct node{
+	int info;
+	node *next;
+	node *pre;	
+};	
+
+class ring{
+	node *head,*temp,*current;
+public:
+	int key;
+	ring(){
+		head = temp = current = NULL;
+		key = 0;
+	}
+		void insert_last(){
+			if(head == NULL){
+				head = new node;
+				cout<<"Enter info 1"<<endl;
+				cin>>head->info;
+				head -> next = head;
+				head ->pre = head;
+			}
+			else if(head->next == head){
+				current = new node;
+				cout<<"Enter info 2"<<endl;
+				cin>>current->info;
+				current->next = head;
+				current->pre = head;
+				head->next = current;
+				head->pre=current;
+				
+			}
+			else {
+				temp = new node;
+				cout<<"Enter info 3"<<endl;
+				cin>>temp->info;
+				temp->next = head;
+				temp->pre = current;
+				current->next = temp;
+				head->pre = temp;
+				current = temp;
+			}
+			
+		}
+		void search(){
+			temp = head;
+			int N = next(temp);
+			cout<<"next = "<<N<<endl;
+			current = head;
+			int P = pre(current);
+			cout<<"pre = "<<P<<endl;
+			if(P>N){
+				cout<<"with next pointer "<<endl;
+			}
+			else{
+				cout<<"with pre pointer "<<endl;
+			}
+		}
+		
+		int next(node *temp){
+			int count = 0;
+			if(temp->info == key){
+				return count;
+			}
+			if(temp->info != key){
+				count++;
+				count += next(temp->next);
+			}
+			return count;
+		}
+		int pre(node *current){
+			int count1 = 0;
+			if(current->info == key){
+				return count1;
+			}
+			if(current->info != key){
+				count1++;
+				count1 += pre(current->pre);
+			}
+			return count1;
+		}
+		void print(){
+			current = head;
+			cout<<"////////////////link list//////////////"<<endl;
+			while(current->next != head){
+				cout<<current->info<<endl;
+				current =current->next;
+			}
+			cout<<current->info<<endl;
+		}	
+};
+
+int main(){
+	ring r1;
+	for(int i = 0;i<5;i++){
+		r1.insert_last();
+	}
+	r1.print();
+	cout<<"Enter value to search :"<<endl;
+	cin>>r1.key;
+	r1.search();
+}*/
+/////////////////////////////////////////Anwar/////////////////
+int pow(int base,int p){
+	int result = 1;
+	for(int i = 0;i<p;i++){
+		result = result*base;
+	}
+	return result;
+}
+float fac(int n){
+	if(n == 0){
+		return 1;
+	}
+	float result = 1;
+	for(int i = 1;i<=n;i++){
+		result = result*i;
+	}
+	return result;
+}
+float result(int x,int n){
+	float sum = 1;
+	for(int i = 1;i<n;i++){
+		int j = 2*i;
+		if(i%2 == 0){
+			sum = sum + pow(x,i)/fac(j);
+		}
+		if(i%2 != 0){
+			sum = sum-pow(x,i)/fac(j);
+		}
+	}
+	return sum;
+}
+int main(){
+	int x,n;
+	cout<<"Enter x "<<endl;
+	cin>>x;
+	cout<<"Enter n"<<endl;
+	cin>>n;
+	cout<<"result = "<<result(x,n)<<endl;
+}
+////////////////////////////////////Equation////////////////////
+int pow(int base,int p){
+	int result = 1;
+	for(int i = 0;i<p;i++){
+		result = result*base;
+	}
+	return result;
+}
+float fac(int n){
+	if(n == 0){
+		return 1;
+	}
+	float result = 1;
+	for(int i = 1;i<=n;i++){
+		result = result*i;
+	}
+	return result;
+}
+//-0.375
+float result(int x,int n){
+	float sum = x;
+	for(int i = 1;i<n;i++){
+		int j = 2*i;
+		int a = 2*i-1;
+		if(i%2 == 0){
+			sum = sum + pow(x,a)/fac(j);
+		}
+		if(i%2 != 0){
+			sum = sum-pow(x,a)/fac(j);
+		}
+	}
+	return sum;
+}
+int main(){
+	int x,n;
+	cout<<"Enter x "<<endl;
+	cin>>x;
+	cout<<"Enter n"<<endl;
+	cin>>n;
+	cout<<"result = "<<result(x,n)<<endl;
+}
+/////////////////////////////////////////////////////////////////
+class qu{
+	private:
+		int *front,*rare,*temp;
+		int count,size;
+		int *array;	
+	public:
+		qu(){
+			front = rare = temp = array = NULL;
+			cout<<"Enter size :"<<endl;
+			cin>>size;
+			array = new int[size];
+			count = 0;
+		}
+		void equ(){
+			if(count>=size){
+				cout<<"Q overflow :"<<endl;
+				return;
+			}
+			if(rare == NULL){
+				rare = array;
+				cout<<"Enter info :"<<endl;
+				cin>>*rare;
+				count++;
+				front = rare;
+				return;
+			}
+			else{
+				rare++;
+				cout<<"Enter info :"<<endl;
+				cin>>*rare;
+				count++;
+				return;	
+			}
+			
+		}
+		void dequ(){
+			temp = array;
+			if(front == NULL){
+				cout<<"under flow :"<<endl;
+			}
+			temp = front;
+			front++;
+			count--;
+			*temp = 0;
+			return;
+		}
+		void print(){
+			temp = array;
+			for(int i = 0;i<size;i++){
+				cout<<*temp;
+				temp++;
+			}
+		}
+	
+};
+int main(){
+	qu ah;
+	for(int i = 0;i<6;i++){
+		ah.equ();	
+	}	
+	ah.print();
+	cout<<endl;
+	ah.dequ();
+	ah.print();
+}
+//////////////////////////////////////////////////////////////////
+////////////////////////////////////////////singly link list ////////////////////////////////////////////////////////////////
+#include<iostream>
+using namespace std;
+
+struct node{
+	int info;
+	node *next;
+};
+class data{
+private:
+	node *head,*current,*temp;
+
+public:
+	///////////////////////////code for insert node with last node/////////////////////////////////////////////////////////
+	data(){
+		head = current = temp = NULL;
+	}
+	void insert_last(){
+		if(head==NULL){
+			head = new node;
+			cout<<"enter info :"<<endl;
+			cin>>head->info;
+			head->next = NULL;
+		}
+        
+		else{
+			current = head;
+			while(current->next!=NULL){
+				current = current->next;
+			}
+			current->next = new node;
+			cout<<"enter info:"<<endl;
+			cin>>current->next->info;
+			current->next->next = NULL;
+		}
+	}
+	void ass(){
+		temp = head;
+		if(assending(temp) == true){
+			cout<<"assending :"<<endl;
+		}
+		else if(desending(temp) == true){
+			cout<<"desending :"<<endl;
+		}
+		else{
+			cout<<"non :"<<endl;
+		}
+	}
+	bool assending(node *temp){
+		if(temp->next == NULL){
+			return true;
+		}
+		else if(temp->info<temp->next->info){
+			assending(temp->next);
+		}
+		else{
+			return false;
+		}
+	}
+	bool desending(node *temp){
+		if(temp->next == NULL){
+			return true;
+		}
+		else if(temp->info>temp->next->info){
+			desending(temp->next);
+		}
+		else{
+			return false;
+		}
+	}
+
+	void print(){
+		current = head;
+		while(current!= NULL){
+			cout<<current->info<<endl;
+			current = current->next;
+		}
+	}
+};
+int main(){
+	data d;
+	for(int i = 0;i<5;i++){
+		d.insert_last();
+	}
+	d.print();
+	d.ass();
+}
+////////////////////////////not correct /////////////////////////////
+void insert(node *temp){
+			if(root == NULL){
+				root = new node;
+				cout<<"Enter root info :"<<endl;
+				cin>>root->info;
+				root->right = NULL;
+				root->left = NULL;
+				ptr = root;
+				return;
+			}
+			if(temp->right == NULL && RTH == false){
+				ptr->right = new node;
+				cout<<"Enter right info :"<<endl;
+				cin>>ptr->right->info;
+				ptr->right->left = NULL;
+				ptr->right->right = NULL;
+				temp1 = ptr->right;
+				RTH = true;
+				LTH = false;
+				return;
+			}
+			if(temp->left == NULL && LTH == false){
+				temp1->left = new node;
+				cout<<"Enter left info :"<<endl;
+				cin>>temp1->left->info;
+				temp1->left->right = NULL;
+				temp1->left->left = NULL;
+				ptr = temp1->left;
+				LTH = true;
+				RTH = false;
+				return;
+			}
+			if(temp->left!=NULL && flag == true){
+				flag = false;
+				insert(temp->left);
+			}
+			if(temp->right!=NULL && flag == false){
+				flag = true;
+				insert(temp->right);
+			}
+			
+		}
+///////////////////////////correct/////////////////////////////////////////
+void insert(node *temp){
+			if(root == NULL){
+				root = new node;
+				cout<<"Enter root info :"<<endl;
+				cin>>root->info;
+				root->right = NULL;
+				root->left = NULL;
+				ptr = root;
+				return;
+			}
+			if(count%2 == 0){
+				temp1 = new node;
+				cout<<"Enter info "<<endl;
+				cin>>temp1->info;
+				temp1->left = NULL;
+				temp1->right = NULL;
+				ptr->right = temp1;
+				current = ptr->right;
+				count++;
+				return;
+			}
+			if(count%2 != 0){
+				temp1 = new node;
+				cout<<"Enter info "<<endl;
+				cin>>temp1->info;
+				temp1->left = NULL;
+				temp1->right = NULL;
+				current->left = temp1;
+				ptr = current->left;
+				count++;
+				return;
+			}
+			if(temp->left!=NULL && flag == true){
+				flag = false;
+				insert(temp->left);
+			}
+			if(temp->right!=NULL && flag == false){
+				flag = true;
+				insert(temp->right);
+			}
+			
+		}
